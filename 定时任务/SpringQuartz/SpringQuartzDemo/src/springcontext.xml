@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:task="http://www.springframework.org/schema/task"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	<!-- 实现job任务的方式 -->
+	<!-- 方式一 -->
+	<bean name="exampleJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+	    <property name="jobClass" value="cn.sq.test.TestJob"/>
+	    <property name="jobDataAsMap">
+	        <map>
+	            <entry key="timeout" value="5"/>
+	        </map>
+	    </property>
+	</bean>
+	
+	<bean id="exampleBusinessObject" class="cn.sq.test.DoWork"/>
+	<!-- 方式二 推荐方法-->
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	    <property name="targetObject" ref="exampleBusinessObject"/>
+	    <property name="targetMethod" value="doIt"/>
+	</bean>
+	
+	
+	<!-- 定义trigger,包括simpleTrigger和cronTrigger两种类型 -->
+	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+	    <!-- see the example of method invoking job above -->
+	    <property name="jobDetail" ref="jobDetail"/>
+	    <!-- 10 seconds -->
+	    <property name="startDelay" value="1000"/>
+	    <!-- repeat every 50 seconds -->
+	    <property name="repeatInterval" value="5000"/>
+	</bean>
+
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail" ref="exampleJob"/>
+	    <!-- run every morning at 6 AM -->
+	    <property name="cronExpression" value="5 * * * * ?"/>
+	</bean>
+	
+	<bean id="QuartzJobFactory" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	        <list>
+	            <ref bean="cronTrigger"/>
+	            <ref bean="simpleTrigger"/>
+	        </list>
+	    </property>
+	     <!-- 设置是否Spring容器初始化后马上启动Scheduler，默认为true。如果设置为false则需要手工启动Scheduler -->  
+       <property name="autoStartup" value="true"/>  
+	</bean>
+  
+
+</beans>

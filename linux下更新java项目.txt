@@ -1,0 +1,12 @@
+1. cd /usr/local/apache-tomcat-9.0.0.M9-8083/bin
+2. ./shutdown.sh 
+3. cd ..
+4. cd webapps/
+5. rm -rf dgqxSyncData
+6. rm -rf dgqxSyncData.zip
+7.打包zip,上传
+8. /usr/local/apache-tomcat-9.0.0.M9-8083/webapps
+9. unzip dgqxSyncData.zip
+10 cd ..
+11 cd bin
+12 ./startup.sh 

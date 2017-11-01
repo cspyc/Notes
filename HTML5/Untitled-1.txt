@@ -1,0 +1,12 @@
+var test = document.getElementById("batchId").options;
+console.log(test[2].value);
+
+var options = document.getElementById("batchId").options;
+options[2].value
+
+huadongRadarMosaic
+basicReflection
+huadongStation
+FWSatelliteFenlie
+FWSatelliteHongwai
+kuihua8

@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--<link rel="stylesheet" href="./barTest.css">-->
+        <script src="./jquery-3.1.1.min.js"></script>
+        <title>滚动条测试</title>        
+    </head>
+    <body>
+        <div id="bar" style=" background-color: #E8F3F7;
+                              width: 1000px;
+                              height: 38px;border-radius: 12px;box-shadow:1px 1px 2px 2px #06C;" >
+          <div id="innerContainer" style="margin-left:auto;margin-right:auto"></div>                       
+        </div>
+        <div>
+            <select id="batchId">
+                <option value="001">001</option> 
+                <option value="002">002</option>
+                <option value="003">003</option>
+                <option value="004">004</option>
+                <option value="005">005</option>
+                <option value="006">006</option> 
+                <option value="007">007</option>
+                <option value="008">008</option>
+                <option value="009">009</option>
+                <option value="010">010</option>
+
+            </select>
+
+
+        </div>
+        <script>
+           
+            createBar(10);
+              //底部进度条
+    function createBarElement(i,optionValue){  
+        var createDiv= document.createElement("div");        
+        createDiv.id="barSquare"+i;  
+        createDiv.class="barSquareClass";  
+        createDiv.style.background="#1EABF2"; 
+        createDiv.style.display="inline-block";
+        createDiv.style.width="10px";  
+        createDiv.style.height="15px";  
+        createDiv.style.margin="10px 3px 10px 3px";
+        document.getElementById("innerContainer").appendChild(createDiv);  
+        
+        var barLink = document.createElement("a");
+        barLink.id = optionValue;
+        barLink.class = "barLink";           
+        $(barLink).click(function(){
+            var aId = $(this).attr('id'); 
+            $("#batchId").val(aId);
+            //updatePicture();
+        })       
+        barLink.style.display="inline-block";
+        barLink.style.width="10px"; 
+        barLink.style.height="15px";      
+        /*barLink.style.margin="2px 2px 8px 2px";*/
+        document.getElementById("barSquare"+i).appendChild(barLink);
+    }
+    
+    
+
+    function createBar(barNum){
+    	//$("#innerContainer").html("");
+    	var optionValueArray = getSelectListValue();
+    	
+    	for(var j = barNum-1 ;j>=0;j--){
+    		createBarElement(j,optionValueArray[j]);
+        }
+    	
+    }
+    
+    //滚动效果
+    function scroll(barIndex){
+    	var scrollDiv = document.getElementById("barSquare"+barIndex);
+    	scrollDiv.style.background = "green";
+    }
+    
+    //获取option列表中的value值
+    function getSelectListValue(){
+    	var options = document.getElementById("batchId").options;
+    	var optionValue = new Array();
+    	for(var i =0;i<options.length;i++){
+    		optionValue[i] = options[i].value;
+    	}   	
+    	return optionValue;
+    }
+
+    //获取鼠标聚焦点div中链接的id值,此id值便是对应的option列表中的图片编号,
+    //点击超链接修改option中的当前值为鼠标所指向的值
+    function changeOption(){       
+        var aId = $(this).attr('id'); 
+        $("#batchId").val(aId);
+            //updatePicture();
+        
+        
+    }
+
+        </script>
+    </body>
+
+</html>

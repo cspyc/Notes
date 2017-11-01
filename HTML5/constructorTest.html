@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Constructor Test</title>
+    </head>
+    <body>
+        <script>
+            //定义一个dog对象的构造器
+            function Dog(name,age,weight){
+                this.name = name;
+                this.age = age;
+                this.weight = weight;
+
+                //方法
+                this.bark = function(){
+                    if(this.weight > 25){
+                        alert(this.name + " say woof!");
+                    }else{
+                        alert(this.name + " say hello!");
+                    }
+                };
+            }
+
+            //调用构造器，生成不同的对象
+            var fido = new Dog("fido",2,35);
+            var haha = new Dog("haha",1,15);
+
+            fido.bark();
+            haha.bark();
+        </script>
+    </body>
+</html>

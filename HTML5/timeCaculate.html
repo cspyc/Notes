@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>时间计算</title>    
+
+    </head>
+    <body>
+        <script>
+            //时间格式转换，从Date格式转换成自定义模式的时间字符串。注意：只能是Date对象才能调用
+            Date.prototype.Format = function (fmt) {
+                    var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "H+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                    };
+                    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                    for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                    return fmt;
+            }
+           
+            //日期格式字符串转换为Date对象
+            function stringToDate(dateString){
+                var dateTimeNumber = Date.parse(dateString); //Date.parse()可以将日期格式字符串转换为时间戳数字串
+                if(typeof(dateTimeNumber) == NaN){
+                    console.log("日期格式字符串解析失败");
+                }else{
+                    var dateTimeObj = new Date(dateTimeNumber);                
+                    return dateTimeObj;
+                }
+                
+            }
+
+            //Date对象转换为特定格式的日期字符串
+            function dateObjToString(dateObj,stringFormat){ //dateObj为日期对象，stringFormat为自定义字符串格式，e.g:yyyy-MM-dd HH:mm
+                var dateString = dateObj.Format(stringFormat);
+                return dateString;
+            }
+
+            //增加小时计算
+            function calculateHour(dateObj,addNum){ //传入Date对象及要加上的小时数，返回相加后的Date对象
+                var result = dateObj.setHours(dateObj.getHours() + addNum);
+                var dateTime = new Date(result);                
+                return dateTime;
+            }
+
+            //增加分钟计算
+            function calculateMinute(dateObj,addNum){
+                var result = dateObj.setMinutes(dateObj.getMinutes() + addNum);
+                var dateTime = new Date(result);                
+                return dateTime;
+            }
+
+            var currentTime = Date.now();
+            var time = new Date(currentTime);
+            var timeString = dateObjToString(time,"yyyy-MM-dd HH:mm");
+            alert("当前时间："+ timeString);
+            
+            var addTimeString = dateObjToString(calculateHour(time,10),"yyyy-MM-dd HH:mm");
+            alert("10小时后："+addTimeString);          
+
+            var addTime2String = dateObjToString(calculateMinute(new Date(Date.now()),parseInt("006")),"yyyy-MM-dd HH:mm");
+            alert("6分钟后："+addTime2String);
+            alert(typeof(006));
+
+            var testTime = "2212";
+            var processTime = testTime.substring(0,2)+":"+testTime.substring(2,4);
+            alert(processTime);
+           
+ 
+        </script>
+    </body>
+
+
+<html>
+

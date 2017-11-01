@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:task="http://www.springframework.org/schema/task"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	 <!-- enable scheduling annotations -->
+	<!--  http://docs.spring.io/spring/docs/current/spring-framework-reference/html/scheduling.html
+		  http://www.blogjava.net/bolo/archive/2015/03/12/423408.html
+	 -->
+<!-- 	 If you do not provide a pool-size attribute, the default thread pool will only have a single thread. 
+	 So in real practical, the pool-size is should always be set  to a number bigger than one to prevent any long task delaying all 
+	 other scheduled tasks. -->
+	  <task:annotation-driven scheduler="scheduler" executor="executor"/>
+	  
+	  
+	  <!-- The value provided for the 'id' attribute will be used as the prefix for thread names within the pool. 
+	  The 'scheduler' element is relatively straightforward. 
+	  If you do not provide a 'pool-size' attribute, the default thread pool will only have a single thread. 
+	  There are no other configuration options for the scheduler. -->	  
+	  <task:scheduler id="scheduler" pool-size="10"/>
+	  
+	   <task:executor id="executor" pool-size="10" />
+	   
+	  <!-- register spring beans -->
+	  <context:component-scan base-package="cn.test.job" />
+  
+  
+	
+
+</beans>

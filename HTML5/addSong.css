@@ -1,0 +1,26 @@
+li{
+    list-style-type:none;  
+    width:800px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #Efd,#FFF,rgb(255, 255, 255),rgb(173, 144, 240);
+    font-size: 20px;
+    align-content: center;
+    margin-bottom:
+
+}
+
+huadongRadarMosaic 华东雷达拼图
+basicReflection     雷达单站
+huadongStation   华东区域自动站
+FWSatelliteFenlie 风云卫星分裂窗
+FWSatelliteHongwai 风云卫星红外线
+typhoon  台风监测
+huadongAreaRain24h  华东区域数值产品(0-24小时降雨)
+huadongAreaRain240h  华东区域数值产品(0-240小时降雨)
+huadongAreaGale24h  华东区域数值产品(0-24小时大风)
+huadongAreaGale240h 华东区域数值产品(0-240小时大风)
+raderExtrapolate  雷达拼图外推
+QPF  定量降水预报(120分钟)
+shortTerm360m  短临格点预报(360分钟)
+longterm45d 50天长期趋势预报

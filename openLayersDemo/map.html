@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./openLayer_v4.0.1/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 100%;
+        width: 100%;
+      }
+      #olMap .ol-zoom .ol-zoom-out {
+        margin-top: 204px;
+      }
+      #olMap .ol-zoomslider {
+        background-color: transparent;
+        top: 2.3em;
+      }
+
+      #olMap .ol-touch .ol-zoom .ol-zoom-out {
+        margin-top: 212px;
+      }
+      #olMap .ol-touch .ol-zoomslider {
+        top: 2.75em;
+      }
+
+      #olMap .ol-zoom-in.ol-has-tooltip:hover [role=tooltip],
+      #olMap .ol-zoom-in.ol-has-tooltip:focus [role=tooltip] {
+        top: 3px;
+      }
+
+      #olMap .ol-zoom-out.ol-has-tooltip:hover [role=tooltip],
+      #olMap .ol-zoom-out.ol-has-tooltip:focus [role=tooltip] {
+        top: 232px;
+      }
+
+    </style>
+    <script src="./openLayer_v4.0.1/build/ol.js" type="text/javascript"></script>
+    <title>OpenLayers example</title>
+  </head>
+  <body>
+    <h2>My Map</h2>
+    <div id="olMap" class="map"></div>
+    <script type="text/javascript">
+      var map = new ol.Map({
+        target: 'olMap',
+        controls: ol.control.defaults().extend([
+          
+          new ol.control.ZoomSlider(),
+          new ol.control.ScaleLine()
+        ]),
+        layers: [
+          new ol.layer.Tile({
+           source: new ol.source.XYZ({
+               //url:'http://mt3.google.cn/vt/lyrs=t@131,r@216000000&hl=zh-CN&gl=CN&src=app&x={x}&y={y}&z={z}&s=Gal'//谷歌地形地图  
+               //url:'http://mt2.google.cn/vt/lyrs=y&hl=zh-CN&gl=CN&src=app&x={x}&y={y}&z={z}&s=G'//谷歌卫星地图 混合  
+             //url:'http://tile-{a-c}.openstreetmap.fr/hot/{z}/{x}/{y}.png'//osm地形  
+			        	url:"http://t3.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}" //天地图影像  
+                //url:'http://t3.tianditu.cn/DataServer?T=cia_w&X={x}&Y={y}&L={z}'//天地图影像 标注  
+               //url:'http://webrd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8'//高德地图在线  
+		  	})
+      }),
+       new ol.layer.Tile({
+           source: new ol.source.XYZ({
+               //url:'http://mt3.google.cn/vt/lyrs=t@131,r@216000000&hl=zh-CN&gl=CN&src=app&x={x}&y={y}&z={z}&s=Gal'//谷歌地形地图  
+               //url:'http://mt2.google.cn/vt/lyrs=y&hl=zh-CN&gl=CN&src=app&x={x}&y={y}&z={z}&s=G'//谷歌卫星地图 混合  
+             //url:'http://tile-{a-c}.openstreetmap.fr/hot/{z}/{x}/{y}.png'//osm地形  
+			        	//url:"http://t3.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}" //天地图影像  
+                url:'http://t3.tianditu.cn/DataServer?T=cia_w&X={x}&Y={y}&L={z}'//天地图影像 标注  
+               //url:'http://webrd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8'//高德地图在线  
+		  	})
+      })
+        ]   
+      });
+       map.setView(new ol.View({
+          center: [0,0],
+          zoom: 2
+        }))
+    </script>
+  </body>
+</html>
